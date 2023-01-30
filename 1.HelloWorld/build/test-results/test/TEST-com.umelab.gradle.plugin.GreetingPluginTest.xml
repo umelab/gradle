@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.umelab.gradle.plugin.GreetingPluginTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-01-30T22:58:06" hostname="umedaeizounoMacBook-Pro.local" time="2.391">
+  <properties/>
+  <testcase name="Test_TaskResult" classname="com.umelab.gradle.plugin.GreetingPluginTest" time="2.317"/>
+  <testcase name="Test_OutputMessage" classname="com.umelab.gradle.plugin.GreetingPluginTest" time="0.074"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

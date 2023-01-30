@@ -1,0 +1,64 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+	id 'maven-publish'
+}
+
+dependencies {
+    testImplementation('org.spockframework:spock-core:2.0-groovy-3.0') {
+        exclude module: 'groovy-all'
+    }                  
+    testImplementation('org.opentest4j:opentest4j:1.2.0')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.2')
+    testImplementation('junit:junit:4.13')
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+	// プラグインの定義
+	plugins {
+		greet {
+			id = 'helloworld'
+			implementationClass = 'com.umelab.gradle.plugin.GreetingPlugin'
+		}
+	}
+}
+
+test {
+	//定義すると全テストに影響します
+    //https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLogging.html
+    //コンソールに標準出力を表示
+    testLogging.showStandardStreams = true
+    //Stacktraceを表示
+    testLogging.showStackTraces = true
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+repositories {
+	mavenCentral()
+}
+
+group = 'umelab'
+version = '1.0.0-SNAPSHOT'
+
+def pluginUrl = System.getProperty("ARTIFACTS_PLUGIN_URL")
+def pluginUser  = System.getProperty("ARTIFACTS_USER")
+def pluginToken = System.getProperty("ARTIFACTS_TOKEN")
+
+publishing {
+	repositories {
+		mavenLocal()
+		maven {
+			url (pluginUrl)
+			credentials {
+				username (pluginUser)
+				password (pluginToken)
+			}
+		}
+	}
+}
