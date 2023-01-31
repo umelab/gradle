@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.umelab.gradle.plugin.ArgsPluginTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-01-30T22:59:36" hostname="umedaeizounoMacBook-Pro.local" time="3.153">
+  <properties/>
+  <testcase name="Test_Args_TaskResult" classname="com.umelab.gradle.plugin.ArgsPluginTest" time="2.957"/>
+  <testcase name="Test_Args_Output" classname="com.umelab.gradle.plugin.ArgsPluginTest" time="0.078"/>
+  <testcase name="Test_Args_Error_Format" classname="com.umelab.gradle.plugin.ArgsPluginTest" time="0.118"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
