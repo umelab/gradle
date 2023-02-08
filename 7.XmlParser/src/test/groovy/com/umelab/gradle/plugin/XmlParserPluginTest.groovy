@@ -52,8 +52,7 @@ class XmlParserPluginTest extends Specification {
             |}
             |""".stripIndent().stripMargin()
 
-        commonTestXml << """\
-            |<?xml version="1.0" encoding="UTF-8"?>
+        commonTestXml << """<?xml version="1.0" encoding="UTF-8"?>
             |<tomcatProjectProperties>
             |    <rootDir>/war/target/aipo</rootDir>
             |    <exportSource>false</exportSource>
@@ -100,7 +99,7 @@ class XmlParserPluginTest extends Specification {
 	}
 
     /**
-     * test standardoutput message 'Hello World!'
+     * test addNode task
      */
     def "Test_OutputMessage"() {
 
@@ -113,9 +112,58 @@ class XmlParserPluginTest extends Specification {
 
         then:
         def updateXmlFile = new File(commonResrcDir, 'test.xml')
-        println updateXmlFile.text
-        //assert(actualMsg.count(expectedMsg) == 1)
-	}
+        assert(updateXmlFile.text.contains('<workDir>/work</workDir>'))	}
 
+    /**
+     * test updateNode task
+     */
+    def "Test_UpdateXml"() {
+        def updateTask = 'updateNode'
+        // delete once
+        commonTestXml.delete()
+        // update xml
+        commonTestXml << """<?xml version="1.0" encoding="UTF-8"?>
+            |<tomcatProjectProperties>
+            |    <rootDir>/war/target/aipo</rootDir>
+            |    <workDir>/BAR/FOO/</workDir>
+            |    <webPath>/</webPath>
+            |</tomcatProjectProperties>""".stripIndent().stripMargin().normalize()
+
+        when:
+        def result = GradleRunner.create()
+            .withProjectDir(rootProjectDir)
+            .withArguments(updateTask)
+            .withPluginClasspath()
+            .build()
+        then:
+        def updateXmlFile = new File(commonResrcDir, 'test.xml')
+        assert(updateXmlFile.text.contains('<workDir>/work</workDir>'))
+    }
+
+    /**
+     * test removeNode task
+     */
+    def "Test_UpdateXml"() {
+        def removeTask = 'removeNode'
+        // delete once
+        commonTestXml.delete()
+        // update xml
+        commonTestXml << """<?xml version="1.0" encoding="UTF-8"?>
+            |<tomcatProjectProperties>
+            |    <rootDir>/war/target/aipo</rootDir>
+            |    <workDir>/BAR/FOO/</workDir>
+            |    <webPath>/</webPath>
+            |</tomcatProjectProperties>""".stripIndent().stripMargin().normalize()
+
+        when:
+        def result = GradleRunner.create()
+            .withProjectDir(rootProjectDir)
+            .withArguments(removeTask)
+            .withPluginClasspath()
+            .build()
+        then:
+        def updateXmlFile = new File(commonResrcDir, 'test.xml')
+        assert(!updateXmlFile.text.contains('<workDir>/BAR/FOO/</workDir>'))
+    }
 }
 
