@@ -1,0 +1,42 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+}
+
+dependencies {
+    testImplementation('org.spockframework:spock-core:2.0-groovy-3.0') {
+        exclude module: 'groovy-all'
+    }                  
+    testImplementation('org.opentest4j:opentest4j:1.2.0')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.2')
+    testImplementation('junit:junit:4.13')
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+	// define plugin here
+	plugins {
+		xmlslurper {
+			id = 'xmlslurper'
+			implementationClass = 'com.umelab.gradle.plugin.XmlSlurperPlugin'
+		}
+	}
+}
+
+test {
+    //testLogging
+    //https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLogging.html
+    testLogging.showStandardStreams = true
+	testLogging.showStackTraces = true
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+repositories {
+	//mavenLocal()
+	mavenCentral()
+}
