@@ -1,3 +1,3 @@
 # gradle
 gradle groovy samples
-[test](HOGE.md)
+[test](.DSTORE.md)
