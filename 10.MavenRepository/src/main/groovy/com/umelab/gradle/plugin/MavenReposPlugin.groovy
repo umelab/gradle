@@ -26,8 +26,8 @@ class MavenReposPlugin implements Plugin<Project> {
     def init() {
         String artifact_urls = System.getProperty("ARTIFACTS_REPOSITORY_URL")
         String artifact_tokens = System.getProperty("ARTIFACTS_TOKEN") 
-        String url[] = artifact_urls.split(",")
-        String token[] = artifact_tokens.split(",")
+        String url[] = artifact_urls.split(";")
+        String token[] = artifact_tokens.split(";")
         for (i = 0; i < url.length; ++) {
             def map = [:]
             map.put('URL', url[i])
